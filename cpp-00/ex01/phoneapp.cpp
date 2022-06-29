@@ -6,29 +6,34 @@
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 04:06:20 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2022/06/29 04:08:14 by bmaaqoul         ###   ########.fr       */
+/*   Updated: 2022/06/30 00:52:16 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Contact.hpp"
 
-void    contact::print_contact(contact c[8], int i)
+void    contact::print_contact(void)
 {
-    std::cout << c[i].first_name << std::endl;
-    std::cout << c[i].last_name << std::endl;
-    std::cout << c[i].nickname << std::endl;
-    std::cout << c[i].phone_number << std::endl;
-    std::cout << c[i].darkest_secret << std::endl;
-    c[i].b = 1;
+    std::cout << this->first_name << std::endl;
+    std::cout << this->last_name << std::endl;
+    std::cout << this->nickname << std::endl;
+    std::cout << this->phone_number << std::endl;
+    std::cout << this->darkest_secret << std::endl;
 }
 
-void    contact::adding_contact(contact c[8], int i)
+void    contact::adding_contact(void)
 {
-    std::getline(std::cin, c[i].first_name);
-    std::getline(std::cin, c[i].last_name);
-    std::getline(std::cin, c[i].nickname);
-    std::getline(std::cin, c[i].phone_number);
-    std::getline(std::cin, c[i].darkest_secret);
+    std::cout << "first name : ";
+    std::getline(std::cin, this->first_name);
+    std::cout << "last name : ";
+    std::getline(std::cin, this->last_name);
+    std::cout << "nickname : ";
+    std::getline(std::cin, this->nickname);
+    std::cout << "phone number : ";
+    std::getline(std::cin, this->phone_number);
+    std::cout << "darkest secret : ";
+    std::getline(std::cin, this->darkest_secret);
+    this->b = 1;
 }
 
 std::string contact::truncate_str(std::string str)
@@ -59,5 +64,4 @@ void    contact::searching_contact(contact c[8], int i)
         std::cout << "you must enter a valid index !" << std::endl;
         return ;
     }
-    print_contact(c, i);
 }
