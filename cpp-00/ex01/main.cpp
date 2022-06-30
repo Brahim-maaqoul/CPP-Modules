@@ -6,7 +6,7 @@
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 21:22:20 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2022/06/30 00:51:58 by bmaaqoul         ###   ########.fr       */
+/*   Updated: 2022/06/30 04:07:41 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,25 @@ int main()
     std::getline(std::cin, command);
     while (command != "EXIT")
     {
-        i++;
+        while (command != "ADD" && command != "SEARCH" && command != "EXIT")
+        {
+            std::cout << "Please try again" << std::endl;
+            std::getline(std::cin, command);
+        }
         while (i < 8)
         {
             if (command == "ADD")
             {
+                i++;
                 c[i].adding_contact();
                 break;
             }
             else if (command == "SEARCH")
             {
-                c[i].searching_contact(&c[i], i);
+                i++;
+                c[i].searching_contact(i);
                 c[i].print_contact();
+                std::cin.ignore();
                 break;
             }
         }

@@ -6,7 +6,7 @@
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 04:07:07 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2022/06/30 00:27:48 by bmaaqoul         ###   ########.fr       */
+/*   Updated: 2022/06/30 03:27:27 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ class contact
     public :
     void    print_contact(void);
     void    adding_contact(void);
-    void    searching_contact(contact c[8], int i);
+    void    searching_contact(int i);
     std::string truncate_str(std::string str);
     std::string first_name;
     std::string last_name;

@@ -6,7 +6,7 @@
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 04:06:20 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2022/06/30 00:52:16 by bmaaqoul         ###   ########.fr       */
+/*   Updated: 2022/06/30 04:06:41 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,24 @@ std::string contact::truncate_str(std::string str)
     return str;
 }
 
-void    contact::searching_contact(contact c[8], int i)
+void    contact::searching_contact(int i)
 {
     int j = 0;
     std::cout << "  index  " << "|" << "first name" << "|" << "last name " << "|" << " nickname " << std::endl;
     std::cout << "         " << "|" << "          " << "|" << "          " << "|" << "          " << std::endl;
-    while (c[j].b && j < 8)
-    {
-        std::cout << "         " << j << "|" << truncate_str(c[j].first_name) << "|" << truncate_str(c[j].last_name) << "|";
-        std::cout << truncate_str(c[j].nickname) << std::endl;
-        j++;
-    }
-    std::cout << "enter the index : " << std::endl;
+    std::cout << "enter the index : ";
     std::cin >> this->index;
+    // if (this->index < 0 || this->index > 9)
+    //     return ;
     if (this->index != i)
     {
         std::cout << "you must enter a valid index !" << std::endl;
         return ;
+    }
+    while (j < 8)
+    {
+        std::cout << "         " << j << "|" << truncate_str(this->first_name) << "|" << truncate_str(this->last_name) << "|";
+        std::cout << truncate_str(this->nickname) << std::endl;
+        j++;
     }
 }
