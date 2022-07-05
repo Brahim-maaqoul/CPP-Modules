@@ -6,7 +6,7 @@
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 04:07:07 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2022/07/02 21:11:45 by bmaaqoul         ###   ########.fr       */
+/*   Updated: 2022/07/03 23:40:59 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 class contact
 {
     public :
-    void    print_contact(contact c[8], int i);
-    void    adding_contact(contact c[8], int i);
+    
+    void    set_contact(void);
     // void    searching_contact(contact c[8]);
     std::string truncate_str(std::string str);
     std::string first_name;
@@ -27,7 +27,23 @@ class contact
     std::string	nickname;
     std::string phone_number;
     std::string darkest_secret;
-    int         b;
+};
+
+class phonebook
+{
+    private :
+        contact c[8];
+        int size;
+        int idx;
+    public :
+        void    searching_contact();
+        void    adding_contact(contact cont);
+        void    print_contact(void);
+        phonebook()
+        {
+            size = 0;
+            idx = 0;
+        }
 };
 
 #endif
