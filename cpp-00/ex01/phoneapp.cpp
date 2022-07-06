@@ -39,12 +39,16 @@ void    phonebook::adding_contact(contact cont)
 
 std::string truncate_str(std::string str)
 {
-    if (str.size() > 10)
+    if (str.size() >= 10)
     {
         str = str.substr(0, 9).append(".");
         return str;
     }
-    return str;
+    else
+    {
+        str = str.append(10 - str.size(), ' ');
+         return str;
+    }
 }
 
 void    phonebook::searching_contact()
