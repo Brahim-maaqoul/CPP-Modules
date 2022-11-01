@@ -6,7 +6,7 @@
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 22:53:38 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2022/06/26 22:57:45 by bmaaqoul         ###   ########.fr       */
+/*   Updated: 2022/11/01 20:27:35 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int main(int ac, char **av)
         for (int j = 0; av[i][j]; j++)
         {
             if (av[i][j] >= 97 && av[i][j] <= 122)
-                av[i][j] -= 32;
+                av[i][j] = toupper(av[i][j]);
         }
         std::cout << av[i];
     }
