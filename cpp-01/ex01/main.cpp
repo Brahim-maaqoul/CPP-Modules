@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/01 22:37:38 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2022/11/02 20:02:34 by bmaaqoul         ###   ########.fr       */
+/*   Created: 2022/11/02 21:34:16 by bmaaqoul          #+#    #+#             */
+/*   Updated: 2022/11/03 01:55:22 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 int main()
 {
-    Zombie *z;
-    z = newZombie("brahim");
-    z->announce();
-    delete z;
-    randomChump("gyro");
-} 
+    Zombie  *z = zombieHorde(5, "gyro");
+    for (int i = 0; i < 5; i++)
+        z[i].announce();
+    delete[] z;
+}
