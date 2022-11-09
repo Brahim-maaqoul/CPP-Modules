@@ -6,7 +6,7 @@
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 20:11:01 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2022/11/04 00:22:02 by bmaaqoul         ###   ########.fr       */
+/*   Updated: 2022/11/07 19:21:28 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void    Weapon::setType(std::string type)
     this->type = type;
 }
 
-std::string const Weapon::getType()
+std::string const &Weapon::getType()
 {
     return type;
 }
