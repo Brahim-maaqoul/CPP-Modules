@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/20 08:09:21 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2022/11/21 07:52:36 by bmaaqoul         ###   ########.fr       */
+/*   Created: 2022/11/21 22:32:02 by bmaaqoul          #+#    #+#             */
+/*   Updated: 2022/11/22 00:26:01 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ class Fixed
 		void	setRawBits(int const raw);
 		float toFloat(void) const;
 		int	toInt(void) const;
+        bool    operator>(Fixed const &s) const;
+        bool    operator<(Fixed const &s) const;
+        bool    operator>=(Fixed const &s) const;
+        bool    operator<=(Fixed const &s) const;
+        bool    operator==(Fixed const &s) const;
+        bool    operator!=(Fixed const &s) const;
 };
 
 std::ostream &	operator<<(std::ostream &os, Fixed const &f);
