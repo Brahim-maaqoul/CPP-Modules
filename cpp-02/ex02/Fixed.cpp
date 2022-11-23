@@ -6,7 +6,7 @@
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 22:32:00 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2022/11/22 04:11:10 by bmaaqoul         ###   ########.fr       */
+/*   Updated: 2022/11/23 02:45:17 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,44 @@ Fixed &Fixed::operator=(Fixed const &a)
 {
     // std::cout << "Copy assignment operator called" << std::endl;
     value = a.getRawBits();
+    return *this;
+}
+
+Fixed   &Fixed::operator+(Fixed const &a)
+{
+    Fixed f;
+
+    f.setRawBits(value + a.getRawBits());
+    return f;
+}
+
+Fixed   &Fixed::operator-(Fixed const &a)
+{
+    Fixed f;
+
+    f.setRawBits(value + a.getRawBits());
+    return f;
+}
+
+Fixed   &Fixed::operator*(Fixed const &a)
+{
+    Fixed f;
+
+    f.setRawBits((long long)value * a.getRawBits() >> bits);
+    return f;
+}
+
+Fixed   &Fixed::operator/(Fixed const &a)
+{
+    Fixed f;
+
+    f.setRawBits((long long)value << bits / a.getRawBits());
+    return f;
+}
+
+Fixed   &Fixed::operator++(void)
+{
+    ++value;
     return *this;
 }
 
