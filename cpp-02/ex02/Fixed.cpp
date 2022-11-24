@@ -6,7 +6,7 @@
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 22:32:00 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2022/11/23 02:45:17 by bmaaqoul         ###   ########.fr       */
+/*   Updated: 2022/11/23 23:35:48 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ Fixed &Fixed::operator=(Fixed const &a)
     return *this;
 }
 
-Fixed   &Fixed::operator+(Fixed const &a)
+Fixed   Fixed::operator+(Fixed const &a)
 {
     Fixed f;
 
@@ -72,15 +72,15 @@ Fixed   &Fixed::operator+(Fixed const &a)
     return f;
 }
 
-Fixed   &Fixed::operator-(Fixed const &a)
+Fixed   Fixed::operator-(Fixed const &a)
 {
     Fixed f;
 
-    f.setRawBits(value + a.getRawBits());
+    f.setRawBits(value - a.getRawBits());
     return f;
 }
 
-Fixed   &Fixed::operator*(Fixed const &a)
+Fixed   Fixed::operator*(Fixed const &a)
 {
     Fixed f;
 
@@ -88,7 +88,7 @@ Fixed   &Fixed::operator*(Fixed const &a)
     return f;
 }
 
-Fixed   &Fixed::operator/(Fixed const &a)
+Fixed   Fixed::operator/(Fixed const &a)
 {
     Fixed f;
 
@@ -100,6 +100,53 @@ Fixed   &Fixed::operator++(void)
 {
     ++value;
     return *this;
+}
+
+Fixed   Fixed::operator++(int)
+{
+    Fixed   f(*this);
+    value++;
+    return f;
+}
+
+Fixed   &Fixed::operator--(void)
+{
+    --value;
+    return *this;
+}
+
+Fixed   Fixed::operator--(int)
+{
+    Fixed   f(*this);
+    value--;
+    return f;
+}
+
+Fixed &Fixed::max(Fixed &a, Fixed &b)
+{
+    if (a.value > b.value)
+        return a;
+    return b;
+}
+
+Fixed &Fixed::max(Fixed const &a, Fixed const &b)
+{
+    if (a.value > b.value)
+        return (Fixed&)a;
+    return (Fixed&)b;
+}
+
+Fixed &Fixed::min(Fixed &a, Fixed &b)
+{
+    if (a.value < b.value)
+        return a;
+    return b;
+}
+Fixed &Fixed::min(Fixed const &a, Fixed const &b)
+{
+    if (a.value < b.value)
+        return (Fixed&)a;
+    return (Fixed&)b;
 }
 
 bool    Fixed::operator>(Fixed const &s) const
