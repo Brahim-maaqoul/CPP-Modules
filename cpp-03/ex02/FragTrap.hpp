@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   FragTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/28 14:52:14 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2022/11/30 16:11:31 by bmaaqoul         ###   ########.fr       */
+/*   Created: 2022/11/30 16:59:34 by bmaaqoul          #+#    #+#             */
+/*   Updated: 2022/11/30 17:12:49 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef FRAGTRAP_HPP
+#define FRAGTRAP_HPP
+
 #include "ClapTrap.hpp"
 
-int main()
+class FragTrap : public ClapTrap
 {
-    ClapTrap a("gyro");
-    ClapTrap target(a);
-    target.setName("zeppeli");
-    a.setDamage(11);
-    target.takeDamage(a.getDamage());
-    // target.beRepaired(1);
-    a.attack(target.getName());
-    std::cout << target.getHitpts() << std::endl;
-}
+    public:
+        FragTrap();
+        FragTrap(std::string name);
+        FragTrap(FragTrap const &s);
+        FragTrap &operator=(FragTrap const &s);
+        ~FragTrap();
+        void	attack(const std::string& name);
+        void highFivesGuys(void);
+};
+
+#endif

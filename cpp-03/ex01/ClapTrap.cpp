@@ -5,19 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/28 14:57:29 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2022/11/30 16:15:33 by bmaaqoul         ###   ########.fr       */
+/*   Created: 2022/11/30 12:47:41 by bmaaqoul          #+#    #+#             */
+/*   Updated: 2022/11/30 15:55:47 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap() : hit_points(10), energy_points(10), att_dmg(0)
+ClapTrap::ClapTrap() : hit_points(100), energy_points(50), att_dmg(20)
 {
     std::cout << "Default Constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(std::string name) : Name(name), hit_points(10), energy_points(10), att_dmg(0)
+ClapTrap::ClapTrap(std::string name) : Name(name), hit_points(100), energy_points(50), att_dmg(20)
 {
     std::cout << "Parametric Constructor Called" << std::endl;
 }

@@ -5,21 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/28 14:52:14 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2022/11/30 16:11:31 by bmaaqoul         ###   ########.fr       */
+/*   Created: 2022/11/30 12:47:45 by bmaaqoul          #+#    #+#             */
+/*   Updated: 2022/11/30 17:14:07 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ClapTrap.hpp"
+#include "FragTrap.hpp"
 
 int main()
 {
-    ClapTrap a("gyro");
-    ClapTrap target(a);
-    target.setName("zeppeli");
-    a.setDamage(11);
-    target.takeDamage(a.getDamage());
-    // target.beRepaired(1);
+    // ClapTrap a("gyro");
+    // ClapTrap target("zeppeli");
+    // a.setDamage(2);
+    // target.takeDamage(a.getDamage());
+    // // target.beRepaired(1);
+    // a.attack(target.getName());
+    // std::cout << target.getHitpts() << std::endl;
+    FragTrap a("gyro");
+    FragTrap target("zeppeli");
     a.attack(target.getName());
+    target.takeDamage(a.getDamage());
     std::cout << target.getHitpts() << std::endl;
 }
