@@ -6,7 +6,7 @@
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:52:06 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2022/11/30 16:44:34 by bmaaqoul         ###   ########.fr       */
+/*   Updated: 2022/12/02 22:57:17 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ ScavTrap &ScavTrap::operator=(ScavTrap const &s)
 
 void	ScavTrap::attack(const std::string& name)
 {
-	if (!energy_points)
+	if (energy_points <= 0)
 	{
 		std::cout << getName() << " has no more enrgy points left" << std::endl;
 		return ;

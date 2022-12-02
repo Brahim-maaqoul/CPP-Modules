@@ -6,7 +6,7 @@
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 04:27:44 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2022/11/21 00:17:24 by bmaaqoul         ###   ########.fr       */
+/*   Updated: 2022/11/28 16:04:41 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ Fixed &Fixed::operator=(Fixed const &a)
 
 int Fixed::getRawBits(void) const
 {
-    std::cout << "getRawBits member function called" << std::endl;
+    std::cout << "getRawBits member function called" << std:: endl;
     return value;
 }
 
