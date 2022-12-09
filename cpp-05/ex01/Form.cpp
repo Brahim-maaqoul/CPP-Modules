@@ -6,7 +6,7 @@
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 22:03:53 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2022/12/09 17:03:52 by bmaaqoul         ###   ########.fr       */
+/*   Updated: 2022/12/10 00:10:29 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	Form::getGradeExecute() const
 Form	&Form::operator=(const Form &obj)
 {
 	std::cout << "Copy Assignment Operator Called" << std::endl;
+	this->_signed = obj._signed;
 	return *this;
 }
 
