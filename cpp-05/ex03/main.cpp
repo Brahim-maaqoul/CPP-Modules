@@ -5,29 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/05 00:55:48 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2022/12/05 20:12:51 by bmaaqoul         ###   ########.fr       */
+/*   Created: 2022/12/08 20:00:26 by bmaaqoul          #+#    #+#             */
+/*   Updated: 2022/12/09 21:20:45 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Dog.hpp"
-#include "Cat.hpp"
-#include "WrongCat.hpp"
+#include "Intern.hpp"
 
 int main()
 {
-	// Dog basic;
-	// {
-	// 	Dog tmp;
-	// 	tmp = basic;
-	// }
-	Animal *A[100];
-	for (int i = 0; i < 100; i++)
 	{
-		if (i < 50)
-			A[i] = new Dog();
-		else
-			A[i] = new Cat();
+		Intern someRandomIntern;
+		AForm* rrf;
+		rrf = someRandomIntern.makeForm("presidential pardon", "Bender");
 	}
-	return 0;
+	return (0);
 }
