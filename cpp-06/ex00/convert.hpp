@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   convert.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/12 22:23:09 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2022/12/14 22:07:04 by bmaaqoul         ###   ########.fr       */
+/*   Created: 2022/12/14 18:57:00 by bmaaqoul          #+#    #+#             */
+/*   Updated: 2022/12/14 18:58:17 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "convert.hpp"
+#ifndef CONVERT_HPP
+#define CONVERT_HPP
 
-int main(int ac, char **av)
-{
-	if (ac != 2)
-	{
-		std::cout << "please enter one argument !" << std::endl;
-		return (0);
-	}
-	toChar(av[1]);
-	toInt(av[1]);
-	to_float(av[1]);
-	toDouble(av[1]);
-}
+#include <iostream>
+#include <string>
+#include <ctype.h>
+#include <iomanip>
+#include <sstream>
+#include <limits>
+
+int	check_str(std::string str);
+void	toChar(std::string str);
+void	toInt(std::string str);
+void	to_float(std::string str);
+void	toDouble(std::string str);
+
+#endif
