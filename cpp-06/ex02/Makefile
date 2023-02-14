@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/12/15 15:09:48 by bmaaqoul          #+#    #+#              #
-#    Updated: 2022/12/15 15:10:14 by bmaaqoul         ###   ########.fr        #
+#    Created: 2022/12/15 17:22:51 by bmaaqoul          #+#    #+#              #
+#    Updated: 2022/12/15 17:33:06 by bmaaqoul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,11 @@ CPP = c++
 
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp
+SRC = main.cpp Class.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
-%.o : %.cpp Data.hpp
+%.o : %.cpp Class.hpp
 	$(CPP) $(CFLAGS) -c $< -o $@
 
 $(NAME) : $(OBJ) 
