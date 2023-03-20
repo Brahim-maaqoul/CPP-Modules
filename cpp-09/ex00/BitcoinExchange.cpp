@@ -6,7 +6,7 @@
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:02:56 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2023/03/19 01:50:16 by bmaaqoul         ###   ########.fr       */
+/*   Updated: 2023/03/20 03:45:41 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,58 @@ struct	tm	take_date(std::string date)
 	return tm;
 }
 
+int isnumber(std::string str)
+{
+    for (size_t i = 0; i < str.length(); i++)
+    {
+        if (!isdigit(str[i]))
+            return 0;
+    }
+    return 1;
+}
+
 float   take_value(std::string str)
 {
     float   value;
+
+    
     std::stringstream s(str);
     s >> value;
+    // if (value < 0)
+    //     std::cout << "Error: not a positive number.\n";
+    // else if (value > 1000)
+    //     std::cout << "Error: too large a number.\n";
+    return value;
+    
 }
 
-int	countWord(std::string str)
+std::string removeSpaces(std::string str)
 {
-    std::stringstream   s(str);
-    std::string word;
-    int cp = 0;
-    while (s >> word)
-        cp++;
-    return cp;
+    std::string result = "";
+    for (size_t i = 0; i < str.length(); i++) 
+    {
+        if (str[i] != ' ')
+            result += str[i];
+    }
+    return result;
 }
 
-void	parse(std::string str)
+// std::string getlines(std::string str)
+// {
+    
+// }
+
+// int	countWord(std::string str)
+// {
+//     std::stringstream   s(str);
+//     std::string word;
+//     int cp = 0;
+//     while (s >> word)
+//         cp++;
+//     return cp;
+// }
+
+void	read_input(std::string str)
 {
     std::ifstream myfile(str);
     std::string s1;
@@ -57,24 +91,18 @@ void	parse(std::string str)
     {
         std::string date;
         float value;
-        if (countWord(s1) > 3)
-        {
-            std::cout << "Error: file must use the following format: date | value\n";
-            return;
-        }
+
+        s1 = removeSpaces(s1);
+        // std::cout << s1 << std::endl;
         size_t pos = s1.find("|");
-        if (pos == std::string::npos)
-            m.insert(std::pair<std::string, float>(s1, 1));
-        else
-        {
-            date =  s1.substr(0, pos - 1);
-            value = std::stof(s1.substr(pos + 2));
-            m.insert(std::pair<std::string, float>(date, value));
-        }
+        date =  s1.substr(0, pos);
+        value = take_value(s1.substr(pos + 1));
+        m.insert(std::pair<std::string, float>(date, value));
+        // std::cout << date << "\t" << value << "\n";
         if (myfile.eof())
             break ;
     }
     std::map<std::string, float>::iterator it;
-    for (it = m.begin(); it != m.end(); it++)
+    for (it = m.begin(); it != m.end(); ++it)
         std::cout << it->first << "\t" << it->second << std::endl;
 }
