@@ -6,7 +6,7 @@
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:02:56 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2023/03/21 02:51:06 by bmaaqoul         ###   ########.fr       */
+/*   Updated: 2023/03/21 23:42:12 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int check_date(std::string date)
         return 0;
     }
     tm = take_date(date);
+    if (tm.tm_mon == 2 && tm.tm_mday <= 29 && tm.tm_mday > 0)
+        return 1;
     if (tm.tm_mday > 0 && tm.tm_mday <= 31 && tm.tm_mon > 0 && tm.tm_mon <= 12)
         return 1;
     else
@@ -100,11 +102,66 @@ std::string removeSpaces(std::string str)
     return result;
 }
 
+std::map<std::string, float> read_data(std::string file)
+{
+    std::map<std::string, float>m;
+    std::ifstream myfile(file);
+    std::string s1;
+    int line = 1;
+
+    if (!myfile)
+    {
+        std::cout << "Error: could not open file." << std::endl;
+        exit(0);
+    }
+    while (getline(myfile, s1))
+    {
+       std::string date;
+        float value;
+        size_t  p;
+    
+        if (line > 1)
+        {
+            s1 = removeSpaces(s1);
+            size_t pos = s1.find(",");
+            date =  s1.substr(0, pos);
+            value = take_value(s1.substr(pos + 1));
+            if (count_delimiter(s1, ',') > 1)
+                std::cout << "Error: enter a valid format\n";
+            else if (!check_date(date))
+                continue;
+            else
+            {
+                m.insert(std::pair<std::string, float>(date, value));
+            }
+        }
+        else
+        {
+            std::string v;
+            p = s1.find(",");
+            date =  s1.substr(0, p);
+            v = s1.substr(p + 1);
+            if ((count_delimiter(s1, ',') != 1 || date != "date" || v != "exchange_rate"))
+            {
+                std::cout << "Error: bad format in first line\n";
+                break;
+            }
+            line++;
+        }
+        if (myfile.eof())
+            break ;
+    }
+    return m;
+}
+
 void	read_input(std::string str)
 {
     std::ifstream myfile(str);
     std::string s1;
     std::map<std::string, float>m;
+
+    m = read_data("data.csv");
+    int line = 1;
     if (!myfile)
     {
         std::cout << "Error: could not open file." << std::endl;
@@ -114,20 +171,44 @@ void	read_input(std::string str)
     {
         std::string date;
         float value;
-
-        s1 = removeSpaces(s1);
-        if (count_delimiter(s1, '|') != 1)
+        size_t  p;
+    
+        if (line > 1)
         {
-            std::cout << "Error: enter a valid format\n";
-            continue;
+            s1 = removeSpaces(s1);
+            size_t pos = s1.find("|");
+            date =  s1.substr(0, pos);
+            value = take_value(s1.substr(pos + 1));
+            if (count_delimiter(s1, '|') > 1)
+                std::cout << "Error: enter a valid format\n";
+            else if (!check_date(date) || !check_value(value))
+                continue;
+            // m.insert(std::pair<std::string, float>(date, value));
+            else
+            {
+                std::map<std::string, float>::iterator it = m.lower_bound(date);
+                if (date != it->first)
+                {
+                    it--;
+                    std::cout << date << " => " << value << " = " << value * it->second << "\n";
+                }
+                else
+                    std::cout << date << " => " << value << " = " << value * m[date] << "\n";
+            }
         }
-        size_t pos = s1.find("|");
-        date =  s1.substr(0, pos);
-        value = take_value(s1.substr(pos + 1));
-        if (!check_date(date) || !check_value(value))
-            continue;
-        // m.insert(std::pair<std::string, float>(date, value));
-        std::cout << date << "\t" << value << "\n";
+        else
+        {
+            std::string v;
+            p = s1.find("|");
+            date =  s1.substr(0, p - 1);
+            v = s1.substr(p + 2);
+            if ((count_delimiter(s1, '|') != 1 || date != "date" || v != "value"))
+            {
+                std::cout << "Error: bad format in first line\n";
+                break;
+            }
+            line++;
+        }
         if (myfile.eof())
             break ;
     }
