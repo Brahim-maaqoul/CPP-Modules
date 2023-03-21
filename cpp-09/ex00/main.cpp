@@ -6,7 +6,7 @@
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:02:39 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2023/03/18 17:38:48 by bmaaqoul         ###   ########.fr       */
+/*   Updated: 2023/03/21 02:01:31 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int ac, char **av)
 		std::cout << "Error: could not open file.\n";
 		return 0;
 	}
-	parse(av[1]);
+	read_input(av[1]);
 }
 
 
