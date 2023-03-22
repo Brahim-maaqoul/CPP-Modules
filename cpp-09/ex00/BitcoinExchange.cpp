@@ -6,7 +6,7 @@
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:02:56 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2023/03/21 23:42:12 by bmaaqoul         ###   ########.fr       */
+/*   Updated: 2023/03/22 04:28:30 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,16 @@ float   take_value(std::string str)
     float   value;
     size_t  pos;
     
+    if (count_delimiter(str, '.') > 1 || count_delimiter(str, '-') > 1)
+        return 0;
+    pos = str.find(".");
+    if (pos != std::string::npos)
+        if (str[pos + 1] == *str.end())
+            return 0;
+    pos = str.find("-");
+    if (pos != std::string::npos)
+        if (*str.begin() != '-' && !isdigit(str[pos + 1]))
+            return 0;
     pos = str.find_first_not_of("0123456789.-+");
     if (pos != std::string::npos)
         return 0;
@@ -49,6 +59,19 @@ int count_delimiter(std::string str, char c)
     return cp;
 }
 
+bool isLeapYear(int year)
+{
+    if (year % 4 != 0)
+        return false;
+    else if (year % 100 != 0)
+        return true;
+    else if (year % 400 != 0)
+        return false;
+    else
+        return true;
+}
+
+
 int check_date(std::string date)
 {
     struct tm tm;
@@ -59,15 +82,25 @@ int check_date(std::string date)
         return 0;
     }
     tm = take_date(date);
-    if (tm.tm_mon == 2 && tm.tm_mday <= 29 && tm.tm_mday > 0)
-        return 1;
-    if (tm.tm_mday > 0 && tm.tm_mday <= 31 && tm.tm_mon > 0 && tm.tm_mon <= 12)
-        return 1;
-    else
+    if (tm.tm_year < 1 || tm.tm_mon < 1 || tm.tm_mday < 1 || tm.tm_mon > 12 || tm.tm_mday > 31)
     {
         std::cout << "Error: bad input => " << date << std::endl;
         return 0;
     }
+    if ((tm.tm_mon == 4 || tm.tm_mon == 6 || tm.tm_mon == 9 || tm.tm_mon == 11) && tm.tm_mday > 30)
+    {
+        std::cout << "Error: bad input => " << date << std::endl;
+        return 0;
+    }
+    if (tm.tm_mon == 2)
+    {
+        if (tm.tm_mday > 29 || (!isLeapYear(tm.tm_year) && tm.tm_mday > 28))
+        {
+            std::cout << "Error: bad input => " << date << std::endl;
+            return 0;
+        }
+    }
+    return 1;
 }
 
 int check_value(float value)
@@ -119,7 +152,9 @@ std::map<std::string, float> read_data(std::string file)
        std::string date;
         float value;
         size_t  p;
-    
+
+        if (s1.empty())
+            continue;
         if (line > 1)
         {
             s1 = removeSpaces(s1);
@@ -131,9 +166,7 @@ std::map<std::string, float> read_data(std::string file)
             else if (!check_date(date))
                 continue;
             else
-            {
                 m.insert(std::pair<std::string, float>(date, value));
-            }
         }
         else
         {
@@ -141,7 +174,7 @@ std::map<std::string, float> read_data(std::string file)
             p = s1.find(",");
             date =  s1.substr(0, p);
             v = s1.substr(p + 1);
-            if ((count_delimiter(s1, ',') != 1 || date != "date" || v != "exchange_rate"))
+            if (count_delimiter(s1, ',') != 1 || date != "date" || v != "exchange_rate")
             {
                 std::cout << "Error: bad format in first line\n";
                 break;
@@ -167,12 +200,14 @@ void	read_input(std::string str)
         std::cout << "Error: could not open file." << std::endl;
         return ;
     }
-    while (getline(myfile, s1))
+    while (!myfile.fail() && getline(myfile, s1))
     {
         std::string date;
         float value;
         size_t  p;
-    
+
+        if (s1.empty())
+            continue;
         if (line > 1)
         {
             s1 = removeSpaces(s1);
@@ -202,7 +237,7 @@ void	read_input(std::string str)
             p = s1.find("|");
             date =  s1.substr(0, p - 1);
             v = s1.substr(p + 2);
-            if ((count_delimiter(s1, '|') != 1 || date != "date" || v != "value"))
+            if (count_delimiter(s1, '|') != 1 || date != "date" || v != "value")
             {
                 std::cout << "Error: bad format in first line\n";
                 break;
