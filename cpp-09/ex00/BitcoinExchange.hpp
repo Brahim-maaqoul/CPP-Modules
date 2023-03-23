@@ -6,7 +6,7 @@
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:03:14 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2023/03/22 01:52:45 by bmaaqoul         ###   ########.fr       */
+/*   Updated: 2023/03/23 00:08:37 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 
 void	read_input(std::string str);
 struct	tm	take_date(std::string date);
-float	take_value(std::string str);
+int	take_value(std::string str);
 std::string removeSpaces(std::string str);
-float   take_value(std::string str);
+std::string trimSpace(std::string str);
 int count_delimiter(std::string str, char c);
 // int		countWord(std::string str);
 #endif

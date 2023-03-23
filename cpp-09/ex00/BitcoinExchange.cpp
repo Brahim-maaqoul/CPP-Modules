@@ -6,12 +6,13 @@
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:02:56 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2023/03/22 04:28:30 by bmaaqoul         ###   ########.fr       */
+/*   Updated: 2023/03/23 00:25:32 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 
+float v = 0;
 struct	tm	take_date(std::string date)
 {
 	struct tm tm;
@@ -25,11 +26,11 @@ struct	tm	take_date(std::string date)
 	return tm;
 }
 
-float   take_value(std::string str)
+int   take_value(std::string str)
 {
-    float   value;
     size_t  pos;
     
+    str = trimSpace(str);
     if (count_delimiter(str, '.') > 1 || count_delimiter(str, '-') > 1)
         return 0;
     pos = str.find(".");
@@ -43,9 +44,7 @@ float   take_value(std::string str)
     pos = str.find_first_not_of("0123456789.-+");
     if (pos != std::string::npos)
         return 0;
-    std::stringstream s(str);
-    s >> value;
-    return value;
+    return 1;
 }
 
 int count_delimiter(std::string str, char c)
@@ -75,8 +74,11 @@ bool isLeapYear(int year)
 int check_date(std::string date)
 {
     struct tm tm;
+    size_t pos;
 
-    if (count_delimiter(date, '-') != 2)
+    date = trimSpace(date);
+    pos = date.find_first_not_of("0123456789-");
+    if (count_delimiter(date, '-') != 2 || pos != std::string::npos)
     {
         std::cout << "Error: wrong date format\n";
         return 0;
@@ -103,19 +105,21 @@ int check_date(std::string date)
     return 1;
 }
 
-int check_value(float value)
+int check_value(std::string str)
 {
-    if (!value)
+    if (!take_value(str) || str.empty())
     {
-        std::cout << "Error: not a number\n";
+        std::cout << "Error: incorrect number\n";
         return 0;
     }
-    else if (value < 0)
+    std::stringstream s(str);
+    s >> v;
+    if (v < 0)
     {
         std::cout << "Error: not a positive number.\n";
         return 0;
     }
-    else if (value > 1000)
+    else if (v > 1000)
     {
         std::cout << "Error: too large a number.\n";
         return 0;
@@ -135,6 +139,18 @@ std::string removeSpaces(std::string str)
     return result;
 }
 
+std::string trimSpace(std::string str)
+{
+    size_t start = str.find_first_not_of(" ");
+    if (start != std::string::npos)
+        str = str.substr(start);
+    size_t end = str.find_last_not_of(" ");
+    if (end != std::string::npos)
+        str = str.substr(0, end + 1);
+    return str;
+}
+
+
 std::map<std::string, float> read_data(std::string file)
 {
     std::map<std::string, float>m;
@@ -149,24 +165,36 @@ std::map<std::string, float> read_data(std::string file)
     }
     while (getline(myfile, s1))
     {
-       std::string date;
+        std::string date;
         float value;
         size_t  p;
-
         if (s1.empty())
             continue;
+        s1 = trimSpace(s1);
         if (line > 1)
         {
-            s1 = removeSpaces(s1);
             size_t pos = s1.find(",");
             date =  s1.substr(0, pos);
-            value = take_value(s1.substr(pos + 1));
-            if (count_delimiter(s1, ',') > 1)
-                std::cout << "Error: enter a valid format\n";
+            std::stringstream s(s1.substr(pos + 1));
+            if (!take_value(s1.substr(pos + 1)))
+            {
+                std::cout << "Error: bad input => " << s1 << std::endl;
+                continue;
+            }
+            if (count_delimiter(s1, ',') != 1)
+            {
+                if (!check_date(date))
+                    continue;
+                else
+                    std::cout << "Error: bad input => " << s1 << std::endl;
+            }
             else if (!check_date(date))
                 continue;
             else
+            {
+                s >> value;
                 m.insert(std::pair<std::string, float>(date, value));
+            }
         }
         else
         {
@@ -200,35 +228,37 @@ void	read_input(std::string str)
         std::cout << "Error: could not open file." << std::endl;
         return ;
     }
-    while (!myfile.fail() && getline(myfile, s1))
+    while (getline(myfile, s1))
     {
         std::string date;
-        float value;
         size_t  p;
 
         if (s1.empty())
             continue;
+        s1 = trimSpace(s1);
         if (line > 1)
         {
-            s1 = removeSpaces(s1);
             size_t pos = s1.find("|");
-            date =  s1.substr(0, pos);
-            value = take_value(s1.substr(pos + 1));
-            if (count_delimiter(s1, '|') > 1)
-                std::cout << "Error: enter a valid format\n";
-            else if (!check_date(date) || !check_value(value))
-                continue;
-            // m.insert(std::pair<std::string, float>(date, value));
+            date =  s1.substr(0, pos - 1);
+            if (count_delimiter(s1, '|') != 1)
+            {
+                if (!check_date(date))
+                    continue;
+                else
+                    std::cout << "Error: bad input => " << s1 << std::endl;
+            }
+            else if (!check_date(date) || !check_value(s1.substr(pos + 1)))
+                    continue;
             else
             {
                 std::map<std::string, float>::iterator it = m.lower_bound(date);
-                if (date != it->first)
+                if (date != it->first && it != m.begin())
                 {
                     it--;
-                    std::cout << date << " => " << value << " = " << value * it->second << "\n";
+                    std::cout << date << " => " << v << " = " << v * it->second << "\n";
                 }
                 else
-                    std::cout << date << " => " << value << " = " << value * m[date] << "\n";
+                    std::cout << date << " => " << v << " = " << v * m[date] << "\n";
             }
         }
         else
@@ -247,7 +277,4 @@ void	read_input(std::string str)
         if (myfile.eof())
             break ;
     }
-    // std::map<std::string, float>::iterator it;
-    // for (it = m.begin(); it != m.end(); ++it)
-    //     std::cout << it->first << "\t" << it->second << std::endl;
 }
