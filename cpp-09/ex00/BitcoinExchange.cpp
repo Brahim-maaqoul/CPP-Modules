@@ -6,7 +6,7 @@
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:02:56 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2023/03/23 00:25:32 by bmaaqoul         ###   ########.fr       */
+/*   Updated: 2023/03/24 02:37:52 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,17 +128,6 @@ int check_value(std::string str)
         return 1;
 }
 
-std::string removeSpaces(std::string str)
-{
-    std::string result = "";
-    for (size_t i = 0; i < str.length(); i++) 
-    {
-        if (str[i] != ' ')
-            result += str[i];
-    }
-    return result;
-}
-
 std::string trimSpace(std::string str)
 {
     size_t start = str.find_first_not_of(" ");
@@ -212,6 +201,7 @@ std::map<std::string, float> read_data(std::string file)
         if (myfile.eof())
             break ;
     }
+    myfile.close();
     return m;
 }
 
@@ -277,4 +267,5 @@ void	read_input(std::string str)
         if (myfile.eof())
             break ;
     }
+    myfile.close();
 }
