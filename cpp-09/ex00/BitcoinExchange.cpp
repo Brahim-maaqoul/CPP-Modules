@@ -6,7 +6,7 @@
 /*   By: bmaaqoul <bmaaqoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:02:56 by bmaaqoul          #+#    #+#             */
-/*   Updated: 2023/03/24 02:37:52 by bmaaqoul         ###   ########.fr       */
+/*   Updated: 2023/03/24 21:54:51 by bmaaqoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ std::map<std::string, float> read_data(std::string file)
             if (count_delimiter(s1, ',') != 1 || date != "date" || v != "exchange_rate")
             {
                 std::cout << "Error: bad format in first line\n";
-                break;
+                continue;
             }
             line++;
         }
@@ -260,7 +260,7 @@ void	read_input(std::string str)
             if (count_delimiter(s1, '|') != 1 || date != "date" || v != "value")
             {
                 std::cout << "Error: bad format in first line\n";
-                break;
+                continue;
             }
             line++;
         }
